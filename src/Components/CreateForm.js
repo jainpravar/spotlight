@@ -106,7 +106,8 @@ class CreateForm extends Component {
                             </Form.Row>
                             <Form>
                                 <Form.Group>
-                                    <Form.File id="productImagePath" value={this.state.productImage} onChange={this.handleChange} label="Product Image" />
+                                    <Form.Label>Image Url</Form.Label>
+                                    <Form.Control type= "text" value={this.state.productImage} onChange={this.handleChange} />
                                 </Form.Group>
                             </Form>
                             <Button variant="primary" type="submit">
