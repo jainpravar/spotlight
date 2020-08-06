@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import {Image} from 'react-bootstrap';
 import item from '../Data/items'
+import Checkbox from "./CheckBox";
 
 class Home extends Component {
+    constructor() {
+        super();
+        this.state={
+            isChecked: false,
+        }
+    }
+
     render() {
+        const {toggleCheckbox} = this.props;
     return(
         <table className = "table">
             <thead className = "thead-dark">
@@ -12,6 +21,7 @@ class Home extends Component {
                     <th scope="col">Discription</th>
                     <th scope="col">Country</th>
                     <th scope="col">Product Image</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +36,15 @@ class Home extends Component {
                     <td>
                         {data.Country}
                     </td>
-                    <Image src='https://ibb.co/25Tqzdn' rounded />
+                    <td>
+                        <Image src={data.productImage} style={{height: 50, width: 100}} rounded />
+                    </td>
+                    <td>
+                        <Checkbox
+                            label={data.id}
+                            handleCheckboxChange={toggleCheckbox}
+                        />
+                    </td>
                 </tr>
             ))}
             </tbody>

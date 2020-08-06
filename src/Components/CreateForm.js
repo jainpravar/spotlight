@@ -5,35 +5,24 @@ class CreateForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tilte: '',
+            title: '',
             country: '',
             language: '',
             keyword: '',
-            discription: '',
+            description: '',
             startDate: '',
             endDate: '',
             productImage: ''
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({
-            tilte: event.target.value.Title,
-            country: event.target.country,
-            language: event.target.language,
-            keyword: event.target.keyword,
-            discription: event.target.discription,
-            startDate: event.target.startDate,
-            endDate: event.target.endDate,
-            productImage: event.target.productImage
-        });
-    }
+    handleChange = field => event => {
+        const newState = {};
+        newState[field] = event.target.value;
+        this.setState(newState);
+    };
+    handleSubmit = () => {
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(this.state);
     }
     render() {
         return (
@@ -53,13 +42,18 @@ class CreateForm extends Component {
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridTitle">
-                                    <Form.Label>Tilte</Form.Label>
-                                    <Form.Control value={this.state.tilte} onChange={this.handleChange} type="text" placeholder="Title" />
+                                    <Form.Label>Title</Form.Label>
+                                    <Form.Control
+                                        value={this.state.title}
+                                        onChange={this.handleChange('title')}
+                                        type="text"
+                                        placeholder="Title"
+                                    />
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridCountry">
                                     <Form.Label>Country</Form.Label>
-                                    <Form.Control value={this.state.country} onChange={this.handleChange} as="select" defaultValue="Choose...">
+                                    <Form.Control value={this.state.country} onChange={this.handleChange('country')} as="select" defaultValue="Choose...">
                                         <option>Choose...</option>
                                         <option>India</option>
                                         <option>USA</option>
@@ -71,19 +65,19 @@ class CreateForm extends Component {
                             </Form.Row>
 
                             <Form.Group controlId="formGridDiscription">
-                                <Form.Label>Discription</Form.Label>
-                                <Form.Control value={this.state.discription} onChange={this.handleChange} type="text" placeholder="Discription" />
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control value={this.state.description} onChange={this.handleChange('description')} type="text" placeholder="Description" />
                             </Form.Group>
 
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridKeyword">
                                     <Form.Label>Keyword</Form.Label>
-                                    <Form.Control value={this.state.keyword} onChange={this.handleChange} type="text" />
+                                    <Form.Control value={this.state.keyword} onChange={this.handleChange('keyword')} type="text" />
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridLanguage">
                                     <Form.Label>Language</Form.Label>
-                                    <Form.Control value={this.state.language} onChange={this.handleChange} as="select" defaultValue="Choose...">
+                                    <Form.Control value={this.state.language} onChange={this.handleChange('language')} as="select" defaultValue="Choose...">
                                         <option>Choose...</option>
                                         <option>Hindi</option>
                                         <option>English</option>
@@ -96,18 +90,18 @@ class CreateForm extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridStartDate">
                                     <Form.Label>Start Date</Form.Label>
-                                    <Form.Control value={this.state.startDate} onChange={this.handleChange} type="Date" />
+                                    <Form.Control value={this.state.startDate} onChange={this.handleChange('startDate')} type="Date" />
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridEndDate">
                                     <Form.Label>End Date</Form.Label>
-                                    <Form.Control value={this.state.endDate} onChange={this.handleChange} type="Date" />
+                                    <Form.Control value={this.state.endDate} onChange={this.handleChange('endDate')} type="Date" />
                                 </Form.Group>
                             </Form.Row>
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Image Url</Form.Label>
-                                    <Form.Control type= "text" value={this.state.productImage} onChange={this.handleChange} />
+                                    <Form.Control type= "text" value={this.state.productImage} onChange={this.handleChange('productImage')} />
                                 </Form.Group>
                             </Form>
                             <Button variant="primary" type="submit">
