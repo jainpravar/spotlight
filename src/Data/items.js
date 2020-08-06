@@ -1,4 +1,4 @@
-export const rows =[
+const rows =[
 
     {
         id : 1,
@@ -10,7 +10,7 @@ export const rows =[
         spolight : "True",
         productImage : "",
         StartDate : Date.now,
-        EndDate : Date.now 
+        EndDate : Date.now
     },
     {
         id : 2,
@@ -22,7 +22,7 @@ export const rows =[
         spolight : "True",
         productImage : "",
         StartDate : Date.now,
-        EndDate : Date.now 
+        EndDate : Date.now
     },
     {
         id : 3,
@@ -34,7 +34,7 @@ export const rows =[
         spolight : "True",
         productImage : "",
         StartDate : Date.now,
-        EndDate : Date.now 
+        EndDate : Date.now
     },
     {
         id : 4,
@@ -46,6 +46,8 @@ export const rows =[
         spolight : "True",
         productImage : "",
         StartDate : Date.now,
-        EndDate : Date.now 
+        EndDate : Date.now
     },
-]
+];
+
+export default rows

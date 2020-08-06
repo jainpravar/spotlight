@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import {Image} from 'react-bootstrap';
 import item from '../Data/items'
-import { render } from 'react-dom';
 
 class Home extends Component {
     render() {
@@ -13,7 +13,23 @@ class Home extends Component {
                     <th scope="col">Country</th>
                     <th scope="col">Product Image</th>
                 </tr>
-            </thead>          
+            </thead>
+            <tbody>
+            {item.map((data) => (
+                <tr>
+                    <td>
+                        {data.Title}
+                    </td>
+                    <td>
+                        {data.Discription}
+                    </td>
+                    <td>
+                        {data.Country}
+                    </td>
+                    <Image src='https://ibb.co/25Tqzdn' rounded />
+                </tr>
+            ))}
+            </tbody>
         </table>
         )
     }
