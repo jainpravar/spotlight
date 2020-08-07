@@ -58,28 +58,28 @@ class Dashboard extends Component {
                 language: data.language,
                 keyword: data.keyword,
                 description: data.description,
-                startDate: data.startDate,
-                endDate: data.endDate,
+                startDate: String(data.startDate),
+                endDate: String(data.endDate),
                 productImage: data.productImage
             }
         })
 
     }
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault();
         const {initialValues} = this.state;
         const obj = {
             id: allItem.length + 1,
             ...initialValues
         }
-        console.log('allItem',allItem);
-        allItem.push(initialValues);
+        console.log('obj',obj);
+        // allItem.push(initialValues);
 
     }
+    closeCreateForm = () => this.setState({ showCreatForm: false });
     render() {
         const {isUpdate} = this.state;
-        console.log('')
-        let closeCreateForm = () => this.setState({ showCreatForm: false });
         return (
             <div>
                 <nav className="navbar navbar-light bg-light">
@@ -131,7 +131,7 @@ class Dashboard extends Component {
                 </table>
                 <CreateForm
                     show={this.state.showCreatForm}
-                    onHide={() => closeCreateForm()}
+                    onHide={() => this.closeCreateForm()}
                     initialValues = {this.state.initialValues}
                     handleSubmit={this.handleSubmit}
                 />
