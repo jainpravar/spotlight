@@ -4,7 +4,6 @@ import { Modal, Button, Form, Col, } from 'react-bootstrap';
 class CreateForm extends Component {
     constructor(props) {
         super(props);
-        console.log('props', props);
         const {  title,
             country,
             language,
@@ -23,6 +22,29 @@ class CreateForm extends Component {
             productImage: productImage
         };
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.initialValues !== this.props.initialValues) {
+            console.log('didprops', this.props);
+            const {  title,
+                country,
+                language,
+                keyword,
+                description,
+                startDate,
+                endDate, productImage } = this.props.initialValues;
+            this.setState({
+                title: title,
+                country: country ,
+                language: language,
+                keyword: keyword,
+                description: description,
+                startDate: startDate,
+                endDate: endDate,
+                productImage: productImage
+            })
+        }
+    }
+
     handleChange = field => event => {
         const newState = {};
         newState[field] = event.target.value;
@@ -86,7 +108,7 @@ class CreateForm extends Component {
                                         <option>Choose...</option>
                                         <option>Hindi</option>
                                         <option>English</option>
-                                        <option>Chinies</option>
+                                        <option>Chinese</option>
                                         <option>Spanish</option>
                                     </Form.Control>
                                 </Form.Group>
