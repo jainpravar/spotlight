@@ -51,7 +51,7 @@ class CreateForm extends Component {
         this.setState(newState);
     };
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, isUpdate } = this.props;
         return (
             <div>
                 <Modal
@@ -62,7 +62,7 @@ class CreateForm extends Component {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            Add New Spotlight
+                        {!isUpdate ? "Add New Spotlight" :"Update Spotlight"}
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
