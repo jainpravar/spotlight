@@ -103,8 +103,12 @@ class Dashboard extends Component {
             ...initialValues
         }
         console.log('obj',obj);
-        // allItem.push(initialValues);
-
+        fetch(`${apiBase}Insert_Details`,{
+            method: 'post',
+            body: obj
+        }).then(res=> {
+            return res.json();
+        })
     }
     closeCreateForm = () => this.setState({ showCreatForm: false });
     render() {
@@ -163,6 +167,7 @@ class Dashboard extends Component {
                     onHide={() => this.closeCreateForm()}
                     initialValues = {this.state.initialValues}
                     handleSubmit={this.handleSubmit}
+                    isUpdate = {isUpdate}
                 />
             </div>
         );
