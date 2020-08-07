@@ -14,7 +14,7 @@ const allItem = [{
     endDate: Date.now,
     productImage : "https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U",
 }];
-
+const apiBase = 'http://localhost:8081/'
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -34,6 +34,36 @@ class Dashboard extends Component {
             }
         };
     }
+    componentDidMount() {
+        fetch(`${apiBase}Spotlight_Details`, {
+            method: 'get'
+        }).then(res => {
+            const {
+                title,
+                country,
+                language,
+                keyword,
+                description,
+                startDate,
+                endDate,
+                productImage
+            } = res;
+            this.setState({
+                initialValues: {
+                    title,
+                    country,
+                    language,
+                    keyword,
+                    description,
+                    startDate,
+                    endDate,
+                    productImage
+                }
+            })
+        }).catch(err => {
+            console.log('err', err)
+        })
+    }
     toggleCheckbox = label => {
         const { selectedCheckboxes } = this.state;
         if (selectedCheckboxes.has(label)) {
@@ -50,7 +80,6 @@ class Dashboard extends Component {
     updateSelectedRow = (id) => {
         this.setState({isUpdate : true,showCreatForm : true});
         const data = allItem.find((obj) => obj.id === id);
-        console.log('data', data)
         this.setState({
             initialValues: {
                 title: data.title,
