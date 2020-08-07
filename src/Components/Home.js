@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Image} from 'react-bootstrap';
+import {Image, Button} from 'react-bootstrap';
 import item from '../Data/items'
 import Checkbox from "./CheckBox";
 
@@ -12,7 +12,7 @@ class Home extends Component {
     }
 
     render() {
-        const {toggleCheckbox} = this.props;
+        const {toggleCheckbox, upadteSelectedRow} = this.props;
     return(
         <table className = "table">
             <thead className = "thead-dark">
@@ -21,6 +21,7 @@ class Home extends Component {
                     <th scope="col">Discription</th>
                     <th scope="col">Country</th>
                     <th scope="col">Product Image</th>
+                    <th scope="col">Update</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
@@ -38,6 +39,9 @@ class Home extends Component {
                     </td>
                     <td>
                         <Image src={data.productImage} style={{height: 50, width: 100}} rounded />
+                    </td>
+                    <td>
+                       <Button variant="primary" onClick={(()=>upadteSelectedRow(data.id))}>Update</Button>
                     </td>
                     <td>
                         <Checkbox

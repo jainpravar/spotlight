@@ -4,27 +4,32 @@ import { Modal, Button, Form, Col, } from 'react-bootstrap';
 class CreateForm extends Component {
     constructor(props) {
         super(props);
+        console.log('props', props);
+        const {  title,
+            country,
+            language,
+            keyword,
+            description,
+            startDate,
+            endDate, productImage } = props.initialValues;
         this.state = {
-            title: '',
-            country: '',
-            language: '',
-            keyword: '',
-            description: '',
-            startDate: '',
-            endDate: '',
-            productImage: ''
+            title: title,
+            country: country ,
+            language: language,
+            keyword: keyword,
+            description: description,
+            startDate: startDate,
+            endDate: endDate,
+            productImage: productImage
         };
     }
-
     handleChange = field => event => {
         const newState = {};
         newState[field] = event.target.value;
         this.setState(newState);
     };
-    handleSubmit = () => {
-
-    }
     render() {
+        const { handleSubmit } = this.props;
         return (
             <div>
                 <Modal
@@ -39,12 +44,12 @@ class CreateForm extends Component {
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={handleSubmit}>
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridTitle">
                                     <Form.Label>Title</Form.Label>
                                     <Form.Control
-                                        value={this.state.title}
+                                        value={this.state.title || ''}
                                         onChange={this.handleChange('title')}
                                         type="text"
                                         placeholder="Title"
@@ -101,7 +106,7 @@ class CreateForm extends Component {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>Image Url</Form.Label>
-                                    <Form.Control type= "text" value={this.state.productImage} onChange={this.handleChange('productImage')} />
+                                    <Form.Control type="text" value={this.state.productImage} onChange={this.handleChange('productImage')} />
                                 </Form.Group>
                             </Form>
                             <Button variant="primary" type="submit">
