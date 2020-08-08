@@ -9,6 +9,7 @@ const allItem = [{
     country: 'India',
     language: 'Hindi',
     keyword: 'text',
+    spotlight: true,
     description: 'Description 1',
     startDate: Date.now,
     endDate: Date.now,
@@ -22,6 +23,7 @@ class Dashboard extends Component {
             isUpdate : false,
             showCreatForm: false,
             selectedCheckboxes: new Set(),
+            Items:[],
             initialValues: {
                 title: '',
                 country: '',
@@ -38,28 +40,11 @@ class Dashboard extends Component {
         fetch(`${apiBase}Spotlight_Details`, {
             method: 'get'
         }).then(res => {
-            const {
-                title,
-                country,
-                language,
-                keyword,
-                description,
-                startDate,
-                endDate,
-                productImage
-            } = res;
-            this.setState({
-                initialValues: {
-                    title,
-                    country,
-                    language,
-                    keyword,
-                    description,
-                    startDate,
-                    endDate,
-                    productImage
-                }
-            })
+                return res.json();
+        }).then((data) => {
+            this.setState({Items: data});
+            console.log('Data',data);
+            console.log('Items',this.state.Items);
         }).catch(err => {
             console.log('err', err)
         })
@@ -92,6 +77,7 @@ class Dashboard extends Component {
                 productImage: data.productImage
             }
         })
+        fetch(`${apiBase}Spotlight_Details`,)
 
     }
 
