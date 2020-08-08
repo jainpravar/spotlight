@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form, Col, } from 'react-bootstrap';
 
+const apiBase = 'http://localhost:8081/';
 class CreateForm extends Component {
     constructor(props) {
         super(props);
@@ -45,13 +46,26 @@ class CreateForm extends Component {
         }
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const data = this.state;
+        fetch(`${apiBase}insert_data`,{
+            mode:'no-cors',
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: data
+        }).then(res=> {
+        console.log('res',res);
+        })
+    }
+
     handleChange = field => event => {
         const newState = {};
         newState[field] = event.target.value;
         this.setState(newState);
     };
     render() {
-        const { handleSubmit, isUpdate } = this.props;
+        const { isUpdate } = this.props;
         return (
             <div>
                 <Modal
@@ -66,7 +80,7 @@ class CreateForm extends Component {
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={this.handleSubmit}>
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridTitle">
                                     <Form.Label>Title</Form.Label>

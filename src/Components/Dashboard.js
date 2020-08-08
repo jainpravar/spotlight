@@ -38,6 +38,7 @@ class Dashboard extends Component {
     }
     componentDidMount() {
         fetch(`${apiBase}Spotlight_Details`, {
+            mode:'no-cors',
             method: 'get'
         }).then(res => {
                 return res.json();
@@ -81,21 +82,7 @@ class Dashboard extends Component {
 
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const {initialValues} = this.state;
-        const obj = {
-            id: allItem.length + 1,
-            ...initialValues
-        }
-        console.log('obj',obj);
-        fetch(`${apiBase}Insert_Details`,{
-            method: 'post',
-            body: obj
-        }).then(res=> {
-            return res.json();
-        })
-    }
+    
     closeCreateForm = () => this.setState({ showCreatForm: false });
     render() {
         const {isUpdate} = this.state;
@@ -152,7 +139,6 @@ class Dashboard extends Component {
                     show={this.state.showCreatForm}
                     onHide={() => this.closeCreateForm()}
                     initialValues = {this.state.initialValues}
-                    handleSubmit={this.handleSubmit}
                     isUpdate = {isUpdate}
                 />
             </div>
