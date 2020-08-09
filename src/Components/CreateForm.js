@@ -50,10 +50,9 @@ class CreateForm extends Component {
         e.preventDefault();
         const data = this.state;
         fetch(`${apiBase}insert_data`,{
-            mode:'no-cors',
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
-            body: data
+            body: JSON.stringify(data)
         }).then(res=> {
         console.log('res',res);
         })

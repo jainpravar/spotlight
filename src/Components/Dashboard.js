@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import CreateForm from './CreateForm';
 import {Button, Image} from "react-bootstrap";
 import Checkbox from "./CheckBox";
@@ -37,19 +38,15 @@ class Dashboard extends Component {
         };
     }
     componentDidMount() {
-        fetch(`${apiBase}Spotlight_Details`, {
-            mode:'no-cors',
-            method: 'get'
-        }).then(res => {
-                return res.json();
-        }).then((data) => {
-            this.setState({Items: data});
-            console.log('Data',data);
-            console.log('Items',this.state.Items);
-        }).catch(err => {
-            console.log('err', err)
+        fetch(`${apiBase}Spotlight_Details`,{
+        method:'get'
+        }) .then(response => response.json())
+        .then(data => {this.setState({ Items:data})
+        console.log(data)
         })
+        .catch(err=> console.log('err', err))
     }
+
     toggleCheckbox = label => {
         const { selectedCheckboxes } = this.state;
         if (selectedCheckboxes.has(label)) {
@@ -60,12 +57,15 @@ class Dashboard extends Component {
     }
     deleteSelectedRows = () => {
         const { selectedCheckboxes } = this.state;
-        // delete api call
+       fetch(`${apiBase}multiple_delete?${selectedCheckboxes}`,{
+            method:'delete',
+            body:selectedCheckboxes
+       }).then(res=>res.json())
     }
 
     updateSelectedRow = (id) => {
         this.setState({isUpdate : true,showCreatForm : true});
-        const data = allItem.find((obj) => obj.id === id);
+        const data = this.state.Items.find((obj) => obj.id === id);
         this.setState({
             initialValues: {
                 title: data.title,
@@ -78,14 +78,18 @@ class Dashboard extends Component {
                 productImage: data.productImage
             }
         })
-        fetch(`${apiBase}Spotlight_Details`,)
+        // fetch(`${apiBase}update_data`,{
+        //     method:'put',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(data)
+        //})
 
     }
 
     
     closeCreateForm = () => this.setState({ showCreatForm: false });
     render() {
-        const {isUpdate} = this.state;
+        const {isUpdate,Items} = this.state;
         return (
             <div>
                 <nav className="navbar navbar-light bg-light">
@@ -108,7 +112,7 @@ class Dashboard extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {allItem.map((data) => (
+                    {Items.map((data) => (
                         <tr>
                             <td>
                                 {data.title}
