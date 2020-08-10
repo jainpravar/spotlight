@@ -5,14 +5,18 @@ const apiBase = 'http://localhost:8081/';
 class CreateForm extends Component {
     constructor(props) {
         super(props);
-        const {  title,
+        const {
+            id,  
+            title,
             country,
             language,
             keyword,
             description,
             startDate,
-            endDate, productImage } = props.initialValues;
+            endDate,
+            productImage } = props.initialValues;
         this.state = {
+            id: id,
             title: title,
             country: country ,
             language: language,
@@ -26,7 +30,8 @@ class CreateForm extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.initialValues !== this.props.initialValues) {
             console.log('didprops', this.props);
-            const {  title,
+            const {id,  
+                title,
                 country,
                 language,
                 keyword,
@@ -34,6 +39,7 @@ class CreateForm extends Component {
                 startDate,
                 endDate, productImage } = this.props.initialValues;
             this.setState({
+                id:id,
                 title: title,
                 country: country ,
                 language: language,
@@ -46,25 +52,18 @@ class CreateForm extends Component {
         }
     }
 
-    handleSubmit = (e) => {
+    submitForm = (e) => {
         e.preventDefault();
-        const data = this.state;
-        fetch(`${apiBase}insert_data`,{
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(res=> {
-        console.log('res',res);
-        })
+        this.props.handleSubmit(this.state)
+        console.log('handleSubmit',this.state);
     }
-
     handleChange = field => event => {
         const newState = {};
         newState[field] = event.target.value;
         this.setState(newState);
     };
     render() {
-        const { isUpdate } = this.props;
+        const { isUpdate} = this.props;
         return (
             <div>
                 <Modal
@@ -79,7 +78,7 @@ class CreateForm extends Component {
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={this.submitForm}>
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridTitle">
                                     <Form.Label>Title</Form.Label>
